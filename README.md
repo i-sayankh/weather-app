@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# WeatherApp Component
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+The WeatherApp component is a React component that allows users to search for weather information based on city names. It displays the current weather conditions, including temperature, humidity, wind speed, and an icon representing the weather condition.
 
-## Available Scripts
+## JSX Structure
+The component is structured as follows:
 
-In the project directory, you can run:
+- **Container:** The main container for the WeatherApp component. It contains the top bar, weather image, temperature, location, and data container.
 
-### `npm start`
+- **Top Bar:** Contains an input field for entering city names and a search icon for initiating the search.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Weather Image:** Displays an icon representing the weather condition.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Weather Temp:** Displays the current temperature.
 
-### `npm test`
+- **Weather Location:** Displays the name of the city for which weather information is being displayed.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Data Container:** Contains elements for displaying humidity and wind speed information.
 
-### `npm run build`
+## CSS Styles
+The component's styles are defined in the `WeatherApp.css` file. The styles are organized to provide a visually appealing and responsive layout for the component. Key styles include:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Container:** Sets the width, height, margin, and background color of the component.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Top Bar:** Styles the input field and search icon.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Weather Image:** Centers the weather icon.
 
-### `npm run eject`
+- **Weather Temp:** Styles the temperature display.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Weather Location:** Styles the city name display.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Data Container:** Styles for the container displaying humidity and wind speed information.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Element:** Styles for individual data elements (humidity and wind speed).
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Warning:** Styles for displaying warning messages.
 
-## Learn More
+## Functionality
+The component uses the OpenWeatherMap API to fetch weather information based on the city name entered by the user. It handles errors such as invalid city names or failed API requests by displaying appropriate warning messages.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Dependencies
+The component relies on the following assets for weather icons:
+- clear.png
+- cloud.png
+- drizzle.png
+- humidity.png
+- rain.png
+- search.png
+- snow.png
+- wind.png
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Usage
+To use the WeatherApp component, include it in your React application and ensure that the `WeatherApp.css` file and the required assets are properly imported.
