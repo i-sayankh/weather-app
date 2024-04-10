@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './WeatherApp.css';
 
 import clear_icon from "../Assets/clear.png";
@@ -11,38 +11,87 @@ import snow_icon from "../Assets/snow.png";
 import wind_icon from "../Assets/wind.png";
 
 export const WeatherApp = () => {
-  return (
-    <div className='container'>
-        <div className="top-bar">
-            <input type="text" className="cityInput" placeholder='Search'/>
-            <div className="search-icon">
-                <img src={search_icon} alt="" />
-            </div>
-        </div>
-        <div className="weather-image">
-            <img src={cloud_icon} alt="" />
-        </div>
-        <div className="weather-temp">34°c</div>
-        <div className="weather-location">Kolkata</div>
-        <div className="data-container">
 
-            <div className="element">
-                <img src={humidity_icon} alt="" className="icon" />
-                <div className="data">
-                    <div className="humidity-percentage">69%</div>
-                    <div className="text">Humidity</div>
+    let api_key = "c0b860063a2c81d640d0409f3aeee13b";
+    const [wicon, setWicon] = useState(cloud_icon);
+
+    const search = async () => {
+        
+        const city = document.getElementsByClassName("cityInput")[0].value;
+        const warning = document.querySelector('.warning');
+
+        if(city === "") {
+            warning.style.display = 'block';
+        } else {
+            warning.style.display = 'none';
+
+            let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=Metric&appid=${api_key}`;
+            let response = await fetch(url);
+            let data = await response.json();
+
+            const humidity = document.getElementsByClassName("humidity-percentage")[0];
+            const wind = document.getElementsByClassName("wind-speed")[0];
+            const temperature = document.getElementsByClassName("weather-temp")[0];
+            const location = document.getElementsByClassName("weather-location")[0];
+
+            humidity.innerHTML = data.main.humidity + " %";
+            wind.innerHTML = Math.floor(data.wind.speed) + " KM/Hour";
+            temperature.innerHTML = Math.floor(data.main.temp) + "°c";
+            location.innerHTML = data.name;
+
+            if(data.weather[0].icon === "01d" || data.weather[0].icon === "01n") {
+                setWicon(clear_icon);
+            } else if (data.weather[0].icon === "02d" || data.weather[0].icon === "02n") {
+                setWicon(cloud_icon);
+            } else if(data.weather[0].icon === "03d" || data.weather[0].icon === "03n") {
+                setWicon(drizzle_icon);
+            } else if(data.weather[0].icon === "04d" || data.weather[0].icon === "04n") {
+                setWicon(drizzle_icon);
+            } else if(data.weather[0].icon === "09d" || data.weather[0].icon === "09n") {
+                setWicon(rain_icon);
+            } else if(data.weather[0].icon === "10d" || data.weather[0].icon === "10n") {
+                setWicon(rain_icon);
+            } else if(data.weather[0].icon === "13d" || data.weather[0].icon === "13n") {
+                setWicon(snow_icon);
+            } else {
+                setWicon(clear_icon);
+            }
+        }
+    }
+
+    return (
+        <div className='container'>
+            <div className="top-bar">
+                <input type="text" className="cityInput" placeholder='Search' required/>
+                <div className="search-icon" onClick={()=>{search()}}>
+                    <img src={search_icon} alt="" />
                 </div>
             </div>
-
-            <div className="element">
-                <img src={wind_icon} alt="" className="icon" />
-                <div className="data">
-                    <div className="humidity-percentage">300,000 km/sec</div>
-                    <div className="text">Wind Speed</div>
-                </div>
+            <span className="warning" style={{ display: 'none' }}>Please enter a city</span>
+            <div className="weather-image">
+                <img src={wicon} alt="" />
             </div>
-            
+            <div className="weather-temp">34°c</div>
+            <div className="weather-location">Kolkata</div>
+            <div className="data-container">
+
+                <div className="element">
+                    <img src={humidity_icon} alt="" className="icon" />
+                    <div className="data">
+                        <div className="humidity-percentage">50%</div>
+                        <div className="text">Humidity</div>
+                    </div>
+                </div>
+
+                <div className="element">
+                    <img src={wind_icon} alt="" className="icon" />
+                    <div className="data">
+                        <div className="wind-speed">5 km/sec</div>
+                        <div className="text">Wind Speed</div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
-  )
+    )
 }
