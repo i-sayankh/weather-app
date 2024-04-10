@@ -21,40 +21,49 @@ export const WeatherApp = () => {
         const warning = document.querySelector('.warning');
 
         if(city === "") {
+            warning.innerText = 'Please enter a city';
             warning.style.display = 'block';
         } else {
             warning.style.display = 'none';
 
             let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=Metric&appid=${api_key}`;
-            let response = await fetch(url);
-            let data = await response.json();
 
-            const humidity = document.getElementsByClassName("humidity-percentage")[0];
-            const wind = document.getElementsByClassName("wind-speed")[0];
-            const temperature = document.getElementsByClassName("weather-temp")[0];
-            const location = document.getElementsByClassName("weather-location")[0];
+            try {
+                let response = await fetch(url);
+                if(!response.ok) throw new Error("City Not Found!!!");
 
-            humidity.innerHTML = data.main.humidity + " %";
-            wind.innerHTML = Math.floor(data.wind.speed) + " KM/Hour";
-            temperature.innerHTML = Math.floor(data.main.temp) + "°c";
-            location.innerHTML = data.name;
+                let data = await response.json();
 
-            if(data.weather[0].icon === "01d" || data.weather[0].icon === "01n") {
-                setWicon(clear_icon);
-            } else if (data.weather[0].icon === "02d" || data.weather[0].icon === "02n") {
-                setWicon(cloud_icon);
-            } else if(data.weather[0].icon === "03d" || data.weather[0].icon === "03n") {
-                setWicon(drizzle_icon);
-            } else if(data.weather[0].icon === "04d" || data.weather[0].icon === "04n") {
-                setWicon(drizzle_icon);
-            } else if(data.weather[0].icon === "09d" || data.weather[0].icon === "09n") {
-                setWicon(rain_icon);
-            } else if(data.weather[0].icon === "10d" || data.weather[0].icon === "10n") {
-                setWicon(rain_icon);
-            } else if(data.weather[0].icon === "13d" || data.weather[0].icon === "13n") {
-                setWicon(snow_icon);
-            } else {
-                setWicon(clear_icon);
+                const humidity = document.getElementsByClassName("humidity-percentage")[0];
+                const wind = document.getElementsByClassName("wind-speed")[0];
+                const temperature = document.getElementsByClassName("weather-temp")[0];
+                const location = document.getElementsByClassName("weather-location")[0];
+
+                humidity.innerHTML = data.main.humidity + " %";
+                wind.innerHTML = Math.floor(data.wind.speed) + " KM/Hour";
+                temperature.innerHTML = Math.floor(data.main.temp) + "°c";
+                location.innerHTML = data.name;
+
+                if(data.weather[0].icon === "01d" || data.weather[0].icon === "01n") {
+                    setWicon(clear_icon);
+                } else if (data.weather[0].icon === "02d" || data.weather[0].icon === "02n") {
+                    setWicon(cloud_icon);
+                } else if(data.weather[0].icon === "03d" || data.weather[0].icon === "03n") {
+                    setWicon(drizzle_icon);
+                } else if(data.weather[0].icon === "04d" || data.weather[0].icon === "04n") {
+                    setWicon(drizzle_icon);
+                } else if(data.weather[0].icon === "09d" || data.weather[0].icon === "09n") {
+                    setWicon(rain_icon);
+                } else if(data.weather[0].icon === "10d" || data.weather[0].icon === "10n") {
+                    setWicon(rain_icon);
+                } else if(data.weather[0].icon === "13d" || data.weather[0].icon === "13n") {
+                    setWicon(snow_icon);
+                } else {
+                    setWicon(clear_icon);
+                }
+            } catch(error) {
+                warning.innerText = 'Invalid City Name!!! Failed to load Weather Information!!!';
+                warning.style.display = 'block';
             }
         }
     }
@@ -67,7 +76,7 @@ export const WeatherApp = () => {
                     <img src={search_icon} alt="" />
                 </div>
             </div>
-            <span className="warning" style={{ display: 'none' }}>Please enter a city</span>
+            <span className="warning" style={{ display: 'none' }}></span>
             <div className="weather-image">
                 <img src={wicon} alt="" />
             </div>
