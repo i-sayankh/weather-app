@@ -53,3 +53,5 @@ The component relies on the following assets for weather icons:
 
 ## Usage
 To use the WeatherApp component, include it in your React application and ensure that the `WeatherApp.css` file and the required assets are properly imported.
+
+![image](https://github.com/i-sayankh/weather-app/assets/100083146/1ca7d178-ded7-45be-b4bc-a9fea9040fc7)
